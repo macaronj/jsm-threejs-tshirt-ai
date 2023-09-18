@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
 
-import config from "../config/config";
 import state from "../store";
 import { download } from "../assets";
 import { downloadCanvasToImage, reader } from "../config/helpers";
@@ -57,18 +56,15 @@ const Customizer = () => {
     try {
       setGeneratingImg(true);
 
-      const response = await fetch(
-        `${import.meta.env.VITE_REACT_API_URL}/api/v1/dalle`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt,
-          }),
-        }
-      );
+      const response = await fetch(import.meta.env.VITE_REACT_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt,
+        }),
+      });
 
       const data = await response.json();
 
